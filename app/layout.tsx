@@ -1,47 +1,30 @@
-import type { Metadata } from "next";
-import Header from "@/components/Header";
-import { Footer, FloatingContact } from "@/components/Shared";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000",
+      : "http://localhost:3000",
   ),
-  title: {
-    default: "ITACAPS | Streetwear, Sneakers e Moda Masculina em Itabirito/MG",
-    template: "%s | ITACAPS",
-  },
+  title: "ITACAPS | Bonés, tênis e moda masculina em Itabirito-MG",
   description:
-    "Bonés, streetwear, sneakers e perfumaria importada em Itabirito/MG. Conheça a ITACAPS. Envio para todo o Brasil e atendimento pelo WhatsApp.",
+    "Bonés, tênis, camisetas, camisas de time, óculos e perfumes no centro de Itabirito-MG. Monte seu look no site e receba as opções pelo WhatsApp. Enviamos para todo o Brasil.",
   openGraph: {
-    title: "ITACAPS — Seu estilo. Do seu jeito.",
-    description:
-      "Streetwear, sneakers e moda masculina. De Itabirito para todo o Brasil.",
+    title: "ITACAPS",
+    description: "Bonés, tênis e o look completo. Rua Dr. Guilherme, 272, Itabirito-MG.",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "/images/hero.webp", width: 1536, height: 1024 }],
+    images: [{ url: "/images/fachada.webp", width: 1200, height: 1600 }],
   },
-  robots: { index: true, follow: true },
 };
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+export const viewport: Viewport = { themeColor: "#e8e8e5" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>
-        <a className="skip-link" href="#conteudo">
-          Ir para o conteúdo
-        </a>
-        <Header />
-        {children}
-        <Footer />
-        <FloatingContact />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
