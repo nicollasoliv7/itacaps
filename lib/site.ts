@@ -1,7 +1,7 @@
 // Contatos e dados oficiais da loja.
 // WHATSAPP: número com DDI e DDD, só dígitos (ex.: "5531999999999").
 // Enquanto estiver vazio, o pedido é copiado e o cliente é levado ao contate.me.
-export const WHATSAPP = "";
+export const WHATSAPP = "553199986643";
 export const CONTACT = "https://contate.me/itacaps1";
 export const INSTAGRAM = "https://www.instagram.com/itacaps1/";
 export const ADDRESS = "Rua Dr. Guilherme, 272, Centro, Itabirito-MG";

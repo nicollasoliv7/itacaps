@@ -26,5 +26,4 @@ npm run build
 
 ## Pendências
 
-- Número oficial de WhatsApp.
 - Horário de funcionamento, se quiser exibir.
