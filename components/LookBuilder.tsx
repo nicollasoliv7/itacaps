@@ -14,8 +14,6 @@ import {
 } from "@/lib/site";
 import type { LookPreset } from "@/components/LookGuide";
 
-type Delivery = "loja" | "envio";
-
 const groups = Object.keys(groupNames) as PieceGroup[];
 
 export default function LookBuilder({ preset }: { preset?: LookPreset | null }) {
@@ -23,9 +21,6 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
   const [size, setSize] = useState("");
   const [shoe, setShoe] = useState("");
   const [style, setStyle] = useState("");
-  const [brand, setBrand] = useState("");
-  const [delivery, setDelivery] = useState<Delivery>("loja");
-  const [city, setCity] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
@@ -58,15 +53,9 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
     if (needsSize && size) lines.push(`• Tamanho de roupa: ${size}`);
     if (needsShoe && shoe) lines.push(`• Número do calçado: ${shoe}`);
     if (style) lines.push(`• Estilo: ${style}`);
-    if (brand.trim()) lines.push(`• Marca ou modelo em mente: ${brand.trim()}`);
-    lines.push(
-      delivery === "loja"
-        ? "• Vou retirar na loja"
-        : `• Quero receber em casa${city.trim() ? ` (${city.trim()})` : ""}`,
-    );
     lines.push("", "Pode me mostrar as opções?");
     return lines.join("\n");
-  }, [chosen, needsSize, needsShoe, size, shoe, style, brand, delivery, city, name]);
+  }, [chosen, needsSize, needsShoe, size, shoe, style, name]);
 
   const send = async () => {
     if (!chosen.length) {
@@ -75,7 +64,7 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
       return;
     }
     if (!name.trim()) {
-      setError("Digite seu nome no passo 4 para a equipe saber com quem fala.");
+      setError("Digite seu nome no passo 3 para a equipe saber com quem fala.");
       document.getElementById("lead-nome")?.focus();
       return;
     }
@@ -129,15 +118,11 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
           </div>
         </fieldset>
 
+        {(needsSize || needsShoe) && (
         <fieldset className="step">
           <legend>
-            <span className="step-n">2</span> Tamanho e estilo
+            <span className="step-n">2</span> Tamanho
           </legend>
-          {!needsSize && !needsShoe && (
-            <p className="step-hint">
-              Os tamanhos aparecem aqui quando você escolher roupa ou calçado.
-            </p>
-          )}
           {needsSize && (
             <div className="field">
               <span className="field-label">Tamanho de roupa</span>
@@ -174,74 +159,12 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
               </div>
             </div>
           )}
-          <div className="field">
-            <span className="field-label">Estilo</span>
-            <div className="chips">
-              {styles.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className="chip"
-                  aria-pressed={style === s}
-                  onClick={() => setStyle(style === s ? "" : s)}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-          <label className="field">
-            <span className="field-label">
-              Tem alguma marca ou modelo em mente? <em>Opcional</em>
-            </span>
-            <input
-              type="text"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              placeholder="Ex.: Mizuno Wave Prophecy preto"
-            />
-          </label>
         </fieldset>
+        )}
 
         <fieldset className="step">
           <legend>
-            <span className="step-n">3</span> Como quer receber?
-          </legend>
-          <div className="chips">
-            <button
-              type="button"
-              className="chip"
-              aria-pressed={delivery === "loja"}
-              onClick={() => setDelivery("loja")}
-            >
-              Retirar na loja
-            </button>
-            <button
-              type="button"
-              className="chip"
-              aria-pressed={delivery === "envio"}
-              onClick={() => setDelivery("envio")}
-            >
-              Receber em casa
-            </button>
-          </div>
-          {delivery === "envio" && (
-            <label className="field">
-              <span className="field-label">Sua cidade</span>
-              <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Ex.: Belo Horizonte-MG"
-                autoComplete="address-level2"
-              />
-            </label>
-          )}
-        </fieldset>
-
-        <fieldset className="step">
-          <legend>
-            <span className="step-n">4</span> Seu nome
+            <span className="step-n">3</span> Seu nome
           </legend>
           <label className="field">
             <span className="sr-only">Seu nome</span>
@@ -279,13 +202,13 @@ export default function LookBuilder({ preset }: { preset?: LookPreset | null }) 
         ) : (
           <p className="ticket-empty">Toque nas peças ao lado para montar seu look.</p>
         )}
+        {((needsSize && size) || (needsShoe && shoe) || style) && (
         <dl className="ticket-meta">
           {needsSize && size && (<><dt>Roupa</dt><dd>{size}</dd></>)}
           {needsShoe && shoe && (<><dt>Calçado</dt><dd>{shoe}</dd></>)}
           {style && (<><dt>Estilo</dt><dd>{style}</dd></>)}
-          <dt>Entrega</dt>
-          <dd>{delivery === "loja" ? "Retirar na loja" : city.trim() || "Receber em casa"}</dd>
         </dl>
+        )}
         <button type="button" className="btn btn-wood btn-block" onClick={send}>
           <MessageCircle size={18} aria-hidden />
           Enviar no WhatsApp
