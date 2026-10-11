@@ -73,6 +73,12 @@
   --display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --body: "DM Sans", system-ui, sans-serif;
   --gutter: clamp(16px, 4vw, 40px);
+  --pblur-h: 200px; /* altura do desfoque fixo no rodapé da tela */
+}
+@media (max-width: 760px) {
+  :root {
+    --pblur-h: 120px;
+  }
 }
 
 *,
@@ -335,7 +341,7 @@ p {
   .hero {
     grid-template-columns: 1fr;
   }
-  .hero-photo {
+  .hero-media {
     order: -1;
   }
   .hero-photo img {
@@ -393,6 +399,7 @@ p {
 .shelf {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .shelf-img img {
   transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1254,7 +1261,7 @@ p {
 /* Rodapé */
 .footer {
   border-top: 1px solid var(--line);
-  padding-block: 28px 96px;
+  padding-block: 28px calc(var(--pblur-h) * 0.75 + 40px);
   font-size: 14px;
   color: var(--graphite);
 }
@@ -1271,11 +1278,7 @@ p {
 .footer a {
   margin-left: auto;
 }
-@media (min-width: 761px) {
-  .footer {
-    padding-bottom: 28px;
-  }
-}
+
 
 /* Botão flutuante no celular */
 .fab {
@@ -1287,7 +1290,7 @@ p {
     right: 16px;
     bottom: 16px;
     left: 16px;
-    z-index: 30;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1331,3 +1334,4 @@ p {
     transform: none;
   }
 }
+

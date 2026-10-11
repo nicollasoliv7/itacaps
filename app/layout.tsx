@@ -24,7 +24,13 @@ export const viewport: Viewport = { themeColor: "#e8e8e5" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        {/* Sem JavaScript, o conteúdo animado aparece normalmente */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }
