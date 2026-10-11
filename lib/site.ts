@@ -44,4 +44,4 @@ export const groupNames: Record<PieceGroup, string> = {
 
 export const clothingSizes = ["P", "M", "G", "GG", "XG"];
 export const shoeSizes = ["37", "38", "39", "40", "41", "42", "43", "44"];
-export const styles = ["Esportivo", "Streetwear", "Básico do dia a dia", "Pra presente"];
+export const styles = ["De rua", "Boleiro", "Arrumadinho", "Básico", "Pra festa", "Pra presente"];

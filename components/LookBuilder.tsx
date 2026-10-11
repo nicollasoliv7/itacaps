@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, MessageCircle } from "lucide-react";
 import {
   CONTACT,
@@ -12,12 +12,13 @@ import {
   whatsappLink,
   type PieceGroup,
 } from "@/lib/site";
+import type { LookPreset } from "@/components/LookGuide";
 
 type Delivery = "loja" | "envio";
 
 const groups = Object.keys(groupNames) as PieceGroup[];
 
-export default function LookBuilder() {
+export default function LookBuilder({ preset }: { preset?: LookPreset | null }) {
   const [selected, setSelected] = useState<string[]>([]);
   const [size, setSize] = useState("");
   const [shoe, setShoe] = useState("");
@@ -28,6 +29,16 @@ export default function LookBuilder() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+
+  // Recebe o que foi escolhido no passo a passo guiado.
+  useEffect(() => {
+    if (!preset) return;
+    setSelected(preset.pieces);
+    setSize(preset.size);
+    setShoe(preset.shoe);
+    setStyle(preset.style);
+    setError("");
+  }, [preset]);
 
   const chosen = pieces.filter((p) => selected.includes(p.id));
   const needsSize = chosen.some((p) => p.group === "cima" || p.group === "baixo");

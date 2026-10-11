@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight, Instagram, MapPin, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
-import LookBuilder from "@/components/LookBuilder";
+import MonteSeuLook from "@/components/MonteSeuLook";
 import Fab from "@/components/Fab";
 import { ADDRESS, INSTAGRAM, MAPS, MAP_EMBED, whatsappLink } from "@/lib/site";
 
@@ -156,22 +156,7 @@ export default function Home() {
 
         <section id="monte" className="build" aria-labelledby="monte-titulo">
           <div className="wrap">
-            <div className="section-head section-head-dark">
-              <div>
-                <span className="label label-light">Monte seu look</span>
-                <h2 id="monte-titulo">
-                  Monte
-                  <br />
-                  o visual.
-                </h2>
-              </div>
-              <p>
-                Do tênis ao boné: escolha as peças, o tamanho e como quer receber. O pedido chega
-                pronto no WhatsApp da loja e a equipe responde com fotos e preços do que tem
-                disponível.
-              </p>
-            </div>
-            <LookBuilder />
+            <MonteSeuLook />
           </div>
         </section>
 
