@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight, Instagram, MapPin, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
-import MonteSeuLook from "@/components/MonteSeuLook";
+import LookBuilder from "@/components/LookBuilder";
 import Fab from "@/components/Fab";
 import ScrollReveal from "@/components/ScrollReveal";
 import ProgressiveBlur from "@/components/ProgressiveBlur";
@@ -182,7 +182,19 @@ export default function Home() {
 
         <section id="monte" className="build" aria-labelledby="monte-titulo">
           <div className="wrap">
-            <MonteSeuLook />
+            <ScrollReveal threshold={0.05}>
+              <div className="build-head">
+                <span className="label label-light">Monte seu look</span>
+                <h2 id="monte-titulo">Monte o visual.</h2>
+                <p>
+                  Toque nas peças, escolha o tamanho e chame no WhatsApp. A equipe te responde
+                  com fotos e preços do que tem na loja.
+                </p>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={150} threshold={0.05}>
+              <LookBuilder />
+            </ScrollReveal>
           </div>
         </section>
 
